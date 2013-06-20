@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
   <location>
-    <folder>home</folder>
+    <folder>
+      <name>home</name>
+      <url>./</url>
+    </folder>
+    <folder>
+      <name>cat0</name>
+      <url>./../cat0</url>
+    </folder>
+    <folder>
+      <name>spring</name>
+      <url>./../../cat0/spring</url>
+    </folder>
   </location>
   <folder>
     <name>cat0</name>

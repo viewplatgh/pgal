@@ -8,6 +8,23 @@
         </style>
       </head>
       <body>
+        <div style="background-color:grey" heigth="200px" width="100%">
+          <h>head of the website</h>
+          <div>
+            <ul>
+              <xsl:for-each select="root/location/folder">
+              <li style="display:inline">
+                <a>
+                  <xsl:attribute name="href">
+                    <xsl:value-of select="url"/>
+                  </xsl:attribute>
+                  <xsl:value-of select="name"/>
+                </a>
+              </li>
+              </xsl:for-each>
+            </ul>
+          </div>
+        </div>
         <div style="float:left" width="10%">
           <ul>
             <xsl:for-each select="root/folder">
@@ -15,7 +32,7 @@
               <xsl:attribute name="href">
                 <xsl:value-of select="concat('./', name)"/>
               </xsl:attribute>
-              <xsl:value-of select="name"></xsl:value-of>
+              <xsl:value-of select="name"/>
             </a></li>
             </xsl:for-each>
           </ul>
@@ -24,7 +41,7 @@
           <xsl:for-each select="root/file">
             <img class="thumbnail">
               <xsl:attribute name="src">
-                <xsl:value-of select="concat('./', name)"></xsl:value-of>
+                <xsl:value-of select="concat('./', name)"/>
               </xsl:attribute>
             </img>
           </xsl:for-each>

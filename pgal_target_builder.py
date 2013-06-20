@@ -11,8 +11,24 @@ class PgalTargetBuilder:
     def buildTarget(self, targetPath, xsltPath, location=[]):
         rootNode = etree.Element('root')
         locationNode = etree.SubElement(rootNode, 'location')
-        for locationItem in location:
-            etree.SubElement(locationNode, 'folder').text = str(locationItem)
+
+        
+        if len(location) > 0:
+            folderNode = etree.SubElement(locationNode, 'folder')            
+            dotPath = './'
+            for item in location[1:]:
+                dotPath += '../'
+            etree.SubElement(folderNode, 'name').text = str(location[0])
+            etree.SubElement(folderNode, 'url').text = dotPath
+
+        dotPath = './'
+        locationPath = ''
+        for locationItem in location[1:]:
+            folderNode = etree.SubElement(locationNode, 'folder')
+            etree.SubElement(folderNode, 'name').text = str(locationItem)
+            dotPath = path.join(dotPath, '../')
+            locationPath = path.join(locationPath, str(locationItem))            
+            etree.SubElement(folderNode, 'url').text = str(path.join(dotPath, locationPath)).replace('\\', '/')
 
         fileList = []
         dirList = []
