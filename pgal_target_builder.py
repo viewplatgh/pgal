@@ -3,6 +3,7 @@ from os import listdir
 from os import path
 from lxml import etree
 from pgal_xhtml_creator import PgalXhtmlCreator
+import imghdr
 
 class PgalTargetBuilder:
 
@@ -28,9 +29,11 @@ class PgalTargetBuilder:
             dirNode = etree.SubElement(rootNode, 'folder')
             etree.SubElement(dirNode, 'name').text = item
     
-        for item in fileList:        
-            fileNode = etree.SubElement(rootNode, 'file')
-            etree.SubElement(fileNode, 'name').text = item
+        for item in fileList:
+            subTargetPath = path.join(targetPath, item)
+            if imghdr.what(subTargetPath) is not None: 
+                fileNode = etree.SubElement(rootNode, 'file')
+                etree.SubElement(fileNode, 'name').text = item
 
         targetXmlPath = path.join(targetPath, '%s.xml' % (location[-1]))
         with open(targetXmlPath, 'wb') as xmlFile:
