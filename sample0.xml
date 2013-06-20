@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <location>
+    <folder>home</folder>
+  </location>
+  <folder>
+    <name>cat0</name>
+  </folder>
+  <folder>
+    <name>cat1</name>
+  </folder>
+  <file>
+    <name>sample0.jpg</name>
+  </file>
+</root>

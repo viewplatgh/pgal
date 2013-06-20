@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{50f2d75a-1f68-410f-8b75-a7e362ad9ca9}</ProjectGuid>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>pgal_main.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <InterpreterId>e2c12fa3-f109-4540-8abb-54b0b726bab6</InterpreterId>
+    <InterpreterVersion>3.2</InterpreterVersion>
+    <Name>pgal</Name>
+    <RootNamespace>pgal</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>./sample0</CommandLineArguments>
+    <InterpreterPath>
+    </InterpreterPath>
+    <InterpreterArguments>-i</InterpreterArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="sample0.xml" />
+    <Content Include="sample0.xsl" />
+    <Content Include="sample0\cat0\spring\Roses.jpg" />
+    <Content Include="sample0\cat0\spring\ext\Bears.jpg" />
+    <Content Include="sample0\cat0\summer\goldenears.jpg" />
+    <Content Include="sample0\cat1\Stars.jpg" />
+    <Content Include="sample0\cat1\spring\J0341439.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="sample0\" />
+    <Folder Include="sample0\cat0\" />
+    <Folder Include="sample0\cat0\spring" />
+    <Folder Include="sample0\cat0\spring\ext" />
+    <Folder Include="sample0\cat0\summer" />
+    <Folder Include="sample0\cat1" />
+    <Folder Include="sample0\cat1\spring" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="pgal_folder_parser.py" />
+    <Compile Include="pgal_main.py" />
+    <Compile Include="pgal_target_builder.py" />
+    <Compile Include="pgal_xhtml_creator.py" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>
