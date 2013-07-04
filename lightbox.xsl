@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="/">
+    <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">]]>
     <html>
-      <title>
-        <xsl:value-of select="root/name"/>
-      </title>
       <head>
+        <title></title>
         <style>
           <![CDATA[.thumbnail{float:left width:110px;height:90px;margin:5px;}]]>
           <![CDATA[.head{background-color:cornsilk;width:90%;height:80px;margin-left:auto;margin-right:auto;}]]>

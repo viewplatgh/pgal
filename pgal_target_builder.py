@@ -10,6 +10,8 @@ class PgalTargetBuilder:
 
     def buildTarget(self, targetPath, xsltPath, location=[]):
         rootNode = etree.Element('root')
+        rootNameNode = etree.SubElement(rootNode, 'name')
+        rootNameNode.text = path.basename(path.normpath(targetPath))
         locationNode = etree.SubElement(rootNode, 'location')
 
         # create location node
