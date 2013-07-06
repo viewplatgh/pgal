@@ -31,6 +31,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="lightbox.xsl" />
     <Content Include="sample0.xml" />
     <Content Include="sample0.xsl" />
     <Content Include="sample0\cat0\spring\Roses.jpg" />

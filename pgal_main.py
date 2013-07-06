@@ -20,9 +20,17 @@ class PgalMainApp:
         xtb = PgalTargetBuilder()
         xtb.buildTarget('./sample0', './sample0.xsl', ['home'])
 
+    def unit_test2(self):
+        xtb = PgalTargetBuilder()
+        xtb.buildTarget('./sample0', './sample0.xsl', [])
+
+    def unit_test3(self):
+        xtb = PgalTargetBuilder()
+        xtb.buildTarget('./sample0', './lightbox.xsl', [], ['./js/jquery.js', './js/slimbox2.js'], ['./css/slimbox2.css'])
+        
     def main(self):
 #        self.unit_test()
-        self.unit_test1()
+        self.unit_test3()
 
         print(len(sys.argv))
         print(sys.argv)

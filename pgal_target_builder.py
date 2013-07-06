@@ -1,4 +1,5 @@
 import shutil
+import os
 from os import listdir
 from os import path
 from lxml import etree
@@ -6,23 +7,17 @@ from pgal_xhtml_creator import PgalXhtmlCreator
 import imghdr
 
 class PgalTargetBuilder:
-
-
-    def buildTarget(self, targetPath, xsltPath, location=[]):
+    def recursiveBuildTarget(self, targetPath, xsltPath, location, jsFiles, cssFiles):
         rootNode = etree.Element('root')
+
+        # process name node, is to declare the node's name
         rootNameNode = etree.SubElement(rootNode, 'name')
-        rootNameNode.text = path.basename(path.normpath(targetPath))
+        rootNameNode.text = os.path.basename(os.path.normpath(targetPath))
+        if len(location) == 0:
+            location.append(rootNameNode.text)
+        
+        # process location node
         locationNode = etree.SubElement(rootNode, 'location')
-
-        # create location node
-        #if len(location) > 0:
-        #    folderNode = etree.SubElement(locationNode, 'folder')            
-        #    dotPath = './'
-        #    for item in location[1:]:
-        #        dotPath += '../'
-        #    etree.SubElement(folderNode, 'name').text = str(location[0])
-        #    etree.SubElement(folderNode, 'url').text = dotPath
-
         dotPath = './'
         for item in location[1:]:
             dotPath += '../'
@@ -30,15 +25,27 @@ class PgalTargetBuilder:
         for locationItem in location:
             folderNode = etree.SubElement(locationNode, 'folder')
             etree.SubElement(folderNode, 'name').text = str(locationItem)
-            # skip the 'home' location
+            # skip the first location, as it's url should be './'
             if locationItem != location[0]:
-                locationPath = path.join(locationPath, str(locationItem))                       
-            etree.SubElement(folderNode, 'url').text = str(path.join(dotPath, locationPath)).replace('\\', '/')
+                locationPath = os.path.join(locationPath, str(locationItem))                       
+            etree.SubElement(folderNode, 'url').text = str(os.path.join(dotPath, locationPath)).replace('\\', '/')
 
+        # process js node
+        jsNode = etree.SubElement(rootNode, 'js')
+        for jsItem in jsFiles:
+            jsFileName = os.path.basename(os.path.normpath(jsItem))
+            etree.SubElement(jsNode, 'url').text = str(os.path.join(dotPath, 'js', jsFileName)).replace('\\', '/')
+        
+        #process css node
+        cssNode = etree.SubElement(rootNode, 'css')
+        for cssItem in cssFiles:
+            cssFileName = os.path.basename(os.path.normpath(cssItem))
+            etree.SubElement(cssNode, 'url').text = str(os.path.join(dotPath, 'css', cssFileName)).replace('\\', '/')
+        
         fileList = []
         dirList = []
         # get files and dirs in targetPath
-        for diritem in listdir(targetPath):
+        for diritem in os.listdir(targetPath):
             subTargetPath = path.join(targetPath, diritem)
             if path.isfile(subTargetPath):
                 fileList.append(diritem)
@@ -48,7 +55,7 @@ class PgalTargetBuilder:
         # create sub dir nodes
         for item in dirList:
             subTargetPath = path.join(targetPath, item)
-            self.buildTarget(subTargetPath, xsltPath, location + [item])
+            self.recursiveBuildTarget(subTargetPath, xsltPath, location + [item], jsFiles, cssFiles)
             dirNode = etree.SubElement(rootNode, 'folder')
             etree.SubElement(dirNode, 'name').text = item
     
@@ -70,7 +77,25 @@ class PgalTargetBuilder:
         shutil.copy2(xsltPath, targetXsltPath)
         
         # generate .html web pages
-        xhtmlCreator.createXhtml(targetXmlPath, targetXsltPath)    
-         
+        xhtmlCreator.createXhtml(targetXmlPath, targetXsltPath)   
 
+    def preBuildTarget(self, targetPath, xsltPath, location, jsFiles, cssFiles):
+        pass
 
+    def postBuildTarget(self, targetPath, xsltPath, location, jsFiles, cssFiles):
+        def buildIncludeFiles(fileslist, subdirname):
+            for onefile in fileslist:
+                fileName = os.path.basename(os.path.normpath(onefile))
+                subTargetPath = str(os.path.join(targetPath, subdirname, fileName)).replace('\\', '/')
+                subTargetDir = os.path.dirname(subTargetPath)
+                if not os.path.exists(subTargetDir):
+                    os.makedirs(subTargetDir)
+                shutil.copy2(onefile, subTargetPath)
+        
+        buildIncludeFiles(jsFiles, 'js')
+        buildIncludeFiles(cssFiles, 'css')
+
+    def buildTarget(self, targetPath, xsltPath, location=[], jsFiles=[], cssFiles=[]): 
+        self.preBuildTarget(targetPath, xsltPath, location, jsFiles, cssFiles)
+        self.recursiveBuildTarget(targetPath, xsltPath, location, jsFiles, cssFiles)
+        self.postBuildTarget(targetPath, xsltPath, location, jsFiles, cssFiles)

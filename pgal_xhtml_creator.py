@@ -9,5 +9,5 @@ class PgalXhtmlCreator:
         result = xslTransform(xmlFileObj)
         pathPair = os.path.split(xmlFilePath)
 
-        with open(os.path.join(pathPair[0], ('%s.html' % (os.path.splitext(pathPair[1])[0]))), 'w') as resultFile:
+        with open(os.path.join(pathPair[0], ('%s.html' % (os.path.splitext(pathPair[1])[0]))), 'w', encoding='utf-8') as resultFile:
             resultFile.write(str(result))
