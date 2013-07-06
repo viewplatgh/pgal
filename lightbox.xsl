@@ -119,19 +119,19 @@
         <div>
           <table class="center">
               <tbody>
-                <xsl:apply-templates select="root"/>
+                <xsl:apply-templates select="root/file[position() mod 5 = 1]"/>
               </tbody>
           </table>
         </div>
       </body>
     </html>
   </xsl:template>
-  <xsl:template match="root/file[position() mod 2 = 1]">
+  <xsl:template match="file">
     <tr>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="self::*|following-sibling::file[position() &lt; 5]" mode="cell" />
     </tr>
   </xsl:template>
-  <xsl:template match="root/file/name">
+  <xsl:template match="file" mode="cell">
     <td>
       <a rel="lightbox-cats" title="">
         <xsl:attribute name="href">
