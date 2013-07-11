@@ -7,7 +7,7 @@ from pgal_xhtml_creator import PgalXhtmlCreator
 import imghdr
 
 class PgalTargetBuilder:
-    def recursiveBuildTarget(self, targetPath, xsltPath, location, jsFiles, cssFiles):
+    def recursiveBuildTarget(self, targetPath, xsltPath, subXsltPath, tvlXsltPath, location, jsFiles, idxPageName, cssFiles):
         rootNode = etree.Element('root')
 
         # process name node, is to declare the node's name
@@ -55,7 +55,7 @@ class PgalTargetBuilder:
         # create sub dir nodes
         for item in dirList:
             subTargetPath = path.join(targetPath, item)
-            self.recursiveBuildTarget(subTargetPath, xsltPath, location + [item], jsFiles, cssFiles)
+            self.recursiveBuildTarget(subTargetPath, xsltPath, subXsltPath, tvlXsltPath, location + [item], jsFiles, idxPageName, cssFiles)
             dirNode = etree.SubElement(rootNode, 'folder')
             etree.SubElement(dirNode, 'name').text = item
     
@@ -74,15 +74,17 @@ class PgalTargetBuilder:
         # copy the xslt template to taget folder
         xhtmlCreator = PgalXhtmlCreator()
         targetXsltPath = path.join(targetPath, '%s.xsl' % format(location[-1])) 
-        shutil.copy2(xsltPath, targetXsltPath)
+        
+        xsltPathToUse = xsltPath if len(location) == 1 else subXsltPath if len(location) == 2 else tvlXsltPath
+        shutil.copy2(xsltPathToUse, targetXsltPath)
         
         # generate .html web pages
-        xhtmlCreator.createXhtml(targetXmlPath, targetXsltPath)   
+        xhtmlCreator.createXhtml(targetXmlPath, targetXsltPath, idxPageName)
 
-    def preBuildTarget(self, targetPath, xsltPath, location, jsFiles, cssFiles):
+    def preBuildTarget(self, targetPath, xsltPath, subXsltPath, tvlXsltPath, location, jsFiles, idxPageName, cssFiles):
         pass
 
-    def postBuildTarget(self, targetPath, xsltPath, location, jsFiles, cssFiles):
+    def postBuildTarget(self, targetPath, xsltPath, subXsltPath, tvlXsltPath, location, jsFiles, idxPageName, cssFiles):
         def buildIncludeFiles(fileslist, subdirname):
             for onefile in fileslist:
                 fileName = os.path.basename(os.path.normpath(onefile))
@@ -95,7 +97,15 @@ class PgalTargetBuilder:
         buildIncludeFiles(jsFiles, 'js')
         buildIncludeFiles(cssFiles, 'css')
 
-    def buildTarget(self, targetPath, xsltPath, location=[], jsFiles=[], cssFiles=[]): 
-        self.preBuildTarget(targetPath, xsltPath, location, jsFiles, cssFiles)
-        self.recursiveBuildTarget(targetPath, xsltPath, location, jsFiles, cssFiles)
-        self.postBuildTarget(targetPath, xsltPath, location, jsFiles, cssFiles)
+    def buildTarget(self, args):
+        targetPath = args.target
+        xsltPath = args.root_template
+        subXsltPath = args.sub_template if args.sub_template is not None else xsltPath
+        tvlXsltPath = args.tvl_template if args.tvl_template is not None else subXsltPath
+        idxPageName = args.index_page_name
+        location = [args.home]
+        jsFiles = args.js_files.split(',')
+        cssFiles = args.css_files.split(',')
+        self.preBuildTarget(targetPath, xsltPath, subXsltPath, tvlXsltPath, location, jsFiles, idxPageName, cssFiles)
+        self.recursiveBuildTarget(targetPath, xsltPath, subXsltPath, tvlXsltPath, location, jsFiles, idxPageName, cssFiles)
+        self.postBuildTarget(targetPath, xsltPath, subXsltPath, tvlXsltPath, location, jsFiles, idxPageName, cssFiles)

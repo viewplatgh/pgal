@@ -6,7 +6,7 @@
     <ProjectGuid>{50f2d75a-1f68-410f-8b75-a7e362ad9ca9}</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>pgal_main.py</StartupFile>
+    <StartupFile>pgal.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -17,7 +17,7 @@
     <RootNamespace>pgal</RootNamespace>
     <IsWindowsApplication>False</IsWindowsApplication>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>./sample0</CommandLineArguments>
+    <CommandLineArguments>-t .\sample0 -r .\lightbox.xsl -s .\sample0.xsl -i index.html -j .\js\jquery.js,.\js\slimbox2.js -c .\css\slimbox2.css</CommandLineArguments>
     <InterpreterPath>
     </InterpreterPath>
     <InterpreterArguments>-i</InterpreterArguments>
@@ -50,7 +50,7 @@
     <Folder Include="sample0\cat1\spring" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="pgal_folder_parser.py" />
+    <Compile Include="pgal.py" />
     <Compile Include="pgal_main.py" />
     <Compile Include="pgal_target_builder.py" />
     <Compile Include="pgal_xhtml_creator.py" />

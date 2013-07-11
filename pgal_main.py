@@ -1,57 +1,29 @@
 import sys
-import getopt
-from pgal_folder_parser import PgalFolderParser
+import argparse
 from pgal_xhtml_creator import PgalXhtmlCreator
 from pgal_target_builder import PgalTargetBuilder
 
-class PgalMainApp:
+class PgalMainApp:    
+    #def unit_test0(self):
+    #    xhtmlCreator = PgalXhtmlCreator()
+    #    xhtmlCreator.createXhtml('./sample0.xml', './sample0.xsl')
 
-    argv = sys.argv[1:]
-    targetPath = ''
-    rootTemplate = ''
-    subTemplate = ''
-    tvlTemplate = ''
+    #def unit_test1(self):
+    #    xtb = PgalTargetBuilder()
+    #    xtb.buildTarget('./sample0', './sample0.xsl', ['home'])
 
-    def unit_test0(self):
-        xhtmlCreator = PgalXhtmlCreator()
-        xhtmlCreator.createXhtml('./sample0.xml', './sample0.xsl')
+    #def unit_test2(self):
+    #    xtb = PgalTargetBuilder()
+    #    xtb.buildTarget('./sample0', './sample0.xsl', [])
 
-    def unit_test1(self):
-        xtb = PgalTargetBuilder()
-        xtb.buildTarget('./sample0', './sample0.xsl', ['home'])
-
-    def unit_test2(self):
-        xtb = PgalTargetBuilder()
-        xtb.buildTarget('./sample0', './sample0.xsl', [])
-
-    def unit_test3(self):
-        xtb = PgalTargetBuilder()
-        xtb.buildTarget('./sample0', './lightbox.xsl', [], ['./js/jquery.js', './js/slimbox2.js'], ['./css/slimbox2.css'])
-        
-    def main(self):
+    #def unit_test3(self):
+    #    xtb = PgalTargetBuilder()
+    #    xtb.buildTarget('./sample0', './lightbox.xsl', [], ['./js/jquery.js', './js/slimbox2.js'], ['./css/slimbox2.css'])
+    #       
+    def main(self, args):
+        print('pgal_main called')
+        print('type(args)=%r' % args)
+        print('args=%r' % args)
+        PgalTargetBuilder().buildTarget(args)
 #        self.unit_test()
-        self.unit_test3()
-
-        print(len(sys.argv))
-        print(sys.argv)
-        parser = PgalFolderParser()
-        print(type(parser))
-        try:
-            opts, args = getopt.getopt(self.argv, 'ht:r:s:l:', ['help=','target', 'root-template', 'sub-template', 'tvl-template'])
-            for opt, arg in opts:
-                if opt in ('-h', '--help'):
-                    raise getopt.GetoptError;
-                elif opt in ('-t', '--target'):
-                    self.targetPath = arg
-                elif opt in ('-r', '--root-template'):
-                    self.rootTemplate = arg
-                elif opt in ('-s', '--sub-template'):
-                    self.subTemplate = arg
-                elif opt in ('-l', '--tvl-template'):
-                    self.tvlTemplate = arg
-        except getopt.GetoptError:
-            print('pgal.py')
-            return
-
-thePgal = PgalMainApp()
-thePgal.main()
+#        self.unit_test3()
