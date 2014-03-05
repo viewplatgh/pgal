@@ -43,7 +43,7 @@
                 <xsl:for-each select="root/folder">
                 <li style="display:inline"><a>
                   <xsl:attribute name="href">
-                    <xsl:value-of select="concat('./', name)"/>
+                    <xsl:value-of select="url"/>
                   </xsl:attribute>
                   <xsl:value-of select="name"/>
                 </a></li>
@@ -54,7 +54,7 @@
               <xsl:for-each select="root/file">
                 <img class="thumbnail">
                   <xsl:attribute name="src">
-                    <xsl:value-of select="concat('./', name)"/>
+                    <xsl:value-of select="url"/>
                   </xsl:attribute>
                 </img>
               </xsl:for-each>

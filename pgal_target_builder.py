@@ -27,8 +27,9 @@ class PgalTargetBuilder:
             etree.SubElement(folderNode, 'name').text = str(locationItem)
             # skip the first location, as it's url should be './'
             if locationItem != location[0]:
-                locationPath = os.path.join(locationPath, str(locationItem))                       
-            etree.SubElement(folderNode, 'url').text = str(os.path.join(dotPath, locationPath)).replace('\\', '/')
+                locationPath = os.path.join(locationPath, str(locationItem))
+            urlFileName = idxPageName if idxPageName is not None else ('%s.html' % locationItem)
+            etree.SubElement(folderNode, 'url').text = str(os.path.join(dotPath, locationPath, urlFileName)).replace('\\', '/')
 
         # process js node
         jsNode = etree.SubElement(rootNode, 'js')
@@ -58,6 +59,8 @@ class PgalTargetBuilder:
             self.recursiveBuildTarget(subTargetPath, xsltPath, subXsltPath, tvlXsltPath, location + [item], jsFiles, idxPageName, cssFiles)
             dirNode = etree.SubElement(rootNode, 'folder')
             etree.SubElement(dirNode, 'name').text = item
+            urlFileName = idxPageName if idxPageName is not None else ('%s.html' % item)
+            etree.SubElement(dirNode, 'url').text = str(os.path.join('./', item, urlFileName)).replace('\\', '/')
     
         # create sub file nodes
         for item in fileList:
@@ -65,6 +68,7 @@ class PgalTargetBuilder:
             if imghdr.what(subTargetPath) is not None: 
                 fileNode = etree.SubElement(rootNode, 'file')
                 etree.SubElement(fileNode, 'name').text = item
+                etree.SubElement(fileNode, 'url').text = str(os.path.join('./', item)).replace('\\', '/')
 
         # save the xml dir structure file
         targetXmlPath = path.join(targetPath, '%s.xml' % (location[-1]))

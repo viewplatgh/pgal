@@ -17,10 +17,11 @@
     <RootNamespace>pgal</RootNamespace>
     <IsWindowsApplication>False</IsWindowsApplication>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>-t .\sample0 -r .\lightbox.xsl -s .\sample0.xsl -i index.html -j .\js\jquery.js,.\js\slimbox2.js -c .\css\slimbox2.css</CommandLineArguments>
+    <CommandLineArguments>-t ./sample0 -r ./lightbox.xsl -s ./sample0.xsl -i index.html -j ./js/jquery.js,./js/slimbox2.js -c ./css/slimbox2.css</CommandLineArguments>
     <InterpreterPath>
     </InterpreterPath>
     <InterpreterArguments>-i</InterpreterArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
