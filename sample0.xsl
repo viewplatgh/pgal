@@ -13,6 +13,20 @@
           <![CDATA[.mainbody{width:90%;margin-left:auto;margin-right:auto;}]]>
           <![CDATA[.center{margin-left:auto;margin-right:auto;}]]>
         </style>
+        <xsl:for-each select="root/css/url">
+          <link ref="stylesheet" type="text/css">
+            <xsl:attribute name="href">
+              <xsl:value-of select="current()"/>
+            </xsl:attribute>
+          </link>
+        </xsl:for-each>
+        <xsl:for-each select="root/js/url">
+          <script type="text/javascript">
+            <xsl:attribute name="src">
+              <xsl:value-of select="current()"/>
+            </xsl:attribute>
+          </script>
+        </xsl:for-each>
       </head>
       <body>
         <div style="width:100%;margin-bottom:3px;">
