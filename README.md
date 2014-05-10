@@ -1,7 +1,7 @@
 PGAL
 ====
 A static web gallery generator.
-If you have some pictures on your hard drive and want to publish them as a staic web gallery site. PGAL can help you do this. 
+If you have some pictures on your hard drive and want to publish them as a static web gallery site. PGAL can help you do this. 
 
 Quick start guide
 -----

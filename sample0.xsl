@@ -31,12 +31,12 @@
       <body>
         <div style="width:100%;margin-bottom:3px;">
           <div class="head">
-            <h1 style="padding-left:20px;margin-top:0px;margin-bottom:0px;">head of the website</h1>
+            <h1 style="padding-top:20px;padding-left:20px;">sample0 gallary website</h1>
           </div>
         </div>
         <div style="width:100%;margin-bottom:3px;">
           <div class="navibar">
-            <ul style="border:black solid 1px;padding-left:10px;margin-top:0px;margin-bottom:0px;">
+            <ul style="padding-left:10px;">
               <xsl:for-each select="root/location/folder">
                 <li style="display:inline">
                   <a>
@@ -52,10 +52,10 @@
         </div>
         <div style="width:100%">
           <div class="mainbody">
-            <div style="border:black solid 1px;float:left;width:10%;margin-right:5px">
-              <ul style="border:black solid 1px;padding-left:10px;">
+            <div style="float:left;width:10%;margin-right:5px">
+              <ul style="padding-left:20px;">
                 <xsl:for-each select="root/folder">
-                <li style="display:inline"><a>
+                <li><a>
                   <xsl:attribute name="href">
                     <xsl:value-of select="url"/>
                   </xsl:attribute>
@@ -64,13 +64,18 @@
                 </xsl:for-each>
               </ul>
             </div>
-            <div style="border:black solid 1px;float:left">
+            <div style="float:left">
               <xsl:for-each select="root/file">
-                <img class="thumbnail">
-                  <xsl:attribute name="src">
+		<a>
+                  <xsl:attribute name="href">
                     <xsl:value-of select="url"/>
                   </xsl:attribute>
-                </img>
+                  <img class="thumbnail">
+                    <xsl:attribute name="src">
+                      <xsl:value-of select="url"/>
+                    </xsl:attribute>
+                  </img>
+                </a>
               </xsl:for-each>
             </div>
           </div>
