@@ -16,7 +16,9 @@ Quick start guide
      ```pip install lxml```
  - Use Python to run pgal.py, show the help
     ```pgal.py --help```
+ - PGAL will use the drive folder tree as the gallery website tree map, and use the folder/file name as website links. Therefore, a properly arranged and named folder with pictures inside will be helpful to generate a tidy clear gallery site. See sample0 for an example gallery folder. 
  - To try sample0 gallery, which is included as a sample in PGAL release package, run pgal.py like this:
     ```pgal.py -t ./sample0 -r ./sample0.xsl -i index.html -j ./js/jquery.js,./js/slimbox2.js -c ./css/slimbox2.css```
 
- - The command line above will generate a static website in folder *sample0* if nothing go wrong. As you may see the web pages created in *sample0*, PGAL will use the drive folder tree as the gallery website tree map, and use the folder/file name as website links. Therefore, a properly arranged and named folder with pictures will be helpful to generate a tidy clear gallery site. 
+ - The command line above will generate a static website in folder *sample0* if nothing go wrong. The generated sample0 gallery can be viewed from here: http://viewplatgh.github.io/pgal-demo/sample0/ 
+
